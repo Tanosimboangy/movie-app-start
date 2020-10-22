@@ -1,16 +1,12 @@
 import React from 'react';
+import Movies from './Movies';
 import "./App.css"
 
 function App() {
-	return (<div className="App">
-	<header className="App-header">
-	  <HelloWorld />
-	</header>
-  </div>);
+	return (
+		<div className="App">
+			<Movies />
+		</div>);
 }
-
-function HelloWorld() {
-	return <h1>Hello World!</h1>
-  }
 
 export default App;
