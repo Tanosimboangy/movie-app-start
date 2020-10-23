@@ -20,6 +20,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Tanosimboangy/movie-app-start/issues"
-  },
+  },"browserslist": [
+    "last 1 chrome versions"
+  ]
+  ,
   "homepage": "https://github.com/Tanosimboangy/movie-app-start#readme"
 }
