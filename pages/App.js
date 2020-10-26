@@ -6,7 +6,7 @@ import "./App.css"
 
 function App() {
 	return (
-		<div className="App" style={{maxWidth:'90%', margin:'auto'}}>
+		<div className="App">
 			<Router>
 				<Switch>
 					<Route path="/movie/:id">

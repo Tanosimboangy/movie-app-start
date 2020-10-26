@@ -32353,7 +32353,7 @@ function Movies({
   }, config.images?.base_url && /*#__PURE__*/_react.default.createElement("img", {
     src: config.images.base_url + "w342" + movie.poster_path,
     alt: `${movie.title} poster`
-  }), /*#__PURE__*/_react.default.createElement("h3", null, movie.title)));
+  })));
 }
 
 Movies.propTypes = {
@@ -32420,17 +32420,18 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const API_URL = "https://api.themoviedb.org/3/discover/movie?api_key=9cae3479b893d8f338d20b2d81c2b391&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1";
-const CONFIG_URL = "https://api.themoviedb.org/3/configuration?api_key=9cae3479b893d8f338d20b2d81c2b391";
+const API_URL = "https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&api_key=";
+const CONFIG_URL = "https://api.themoviedb.org/3/configuration?&api_key=";
 
 function MoviesList() {
+  console.log("9cae3479b893d8f338d20b2d81c2b391");
   const [filter, setFilter] = (0, _react.useState)('');
   const [movies, setMovies] = (0, _react.useState)([]);
-  const [config, setConfig] = (0, _react.useState)([]);
+  const [config, setConfig] = (0, _react.useState)({});
 
   const getMovies = async () => {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL + "9cae3479b893d8f338d20b2d81c2b391");
       const data = await res.json();
       setMovies(data.results);
     } catch (e) {
@@ -32440,7 +32441,7 @@ function MoviesList() {
 
   const getConfig = async () => {
     try {
-      const res = await fetch(CONFIG_URL);
+      const res = await fetch(CONFIG_URL + "9cae3479b893d8f338d20b2d81c2b391");
       const config = await res.json();
       setConfig(config);
     } catch (e) {
@@ -32479,9 +32480,13 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+const BASE_URL = "https://api.themoviedb.org/3/movie/";
+const API_KEY = "?api_key=";
+const IMAGE_URL = "https://image.tmdb.org/t/p/";
+const BACKDROP_SIZE = "original";
+const POSTER_SIZE = "w342";
+
 function MovieDetails() {
-  const BASE_URL = "https://api.themoviedb.org/3/movie/";
-  const API_KEY = "?api_key=9cae3479b893d8f338d20b2d81c2b391";
   const {
     id
   } = (0, _reactRouterDom.useParams)();
@@ -32489,7 +32494,7 @@ function MovieDetails() {
 
   const getMovie = async () => {
     try {
-      const res = await fetch(BASE_URL + id + API_KEY);
+      const res = await fetch(BASE_URL + id + API_KEY + "9cae3479b893d8f338d20b2d81c2b391");
       const newMovie = await res.json();
       setMovie(newMovie);
     } catch (e) {
@@ -32501,9 +32506,33 @@ function MovieDetails() {
     getMovie();
   }, [id]);
   if (!movie.title) return null;
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, movie.title), /*#__PURE__*/_react.default.createElement("p", null, movie.overview), /*#__PURE__*/_react.default.createElement("ul", null, movie.genres.map(genre => /*#__PURE__*/_react.default.createElement("li", {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+    className: "backdrop",
+    src: IMAGE_URL + BACKDROP_SIZE + movie.backdrop_path,
+    alt: movie.title + "backdrop"
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "detail-details"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    className: "detail-poster",
+    src: IMAGE_URL + POSTER_SIZE + movie.poster_path,
+    alt: movie.title + "poster"
+  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, movie.title), /*#__PURE__*/_react.default.createElement("p", null, movie.overview), /*#__PURE__*/_react.default.createElement("ul", null, movie.genres.map(genre => /*#__PURE__*/_react.default.createElement("li", {
     key: genre.id
-  }, genre.name))));
+  }, genre.name))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    style: {
+      color: 'blue',
+      fontSize: '20px',
+      textDecoration: 'none'
+    },
+    to: "/"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      backgroundColor: '#00f346',
+      border: 'none',
+      padding: ' 12px 32px',
+      borderRadius: "10px"
+    }
+  }, "GO BACK  \u2192")))));
 }
 },{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"pages/App.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -32532,11 +32561,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function App() {
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "App",
-    style: {
-      maxWidth: '90%',
-      margin: 'auto'
-    }
+    className: "App"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/movie/:id"
   }, /*#__PURE__*/_react.default.createElement(_MovieDetails.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
@@ -32588,7 +32613,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60886" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55449" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

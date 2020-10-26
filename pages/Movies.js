@@ -7,7 +7,6 @@ export default function Movies({movie, config}) {
         <li>
             <Link to={`/movie/${movie.id}`}>
                 {config.images?.base_url && <img src={config.images.base_url + "w342" + movie.poster_path} alt={`${movie.title} poster`} />}
-                <h3>{movie.title}</h3>
             </Link>
         </li>
     )
