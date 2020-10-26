@@ -1,13 +1,27 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
-export default function Movies({movie}) {
+export default function Movies({movie, config}) {
     return(
-        <li>{movie.title}</li>
+        <li>
+            <Link to={`/movie/${movie.id}`}>
+                {config.images?.base_url && <img src={config.images.base_url + "w342" + movie.poster_path} alt={`${movie.title} poster`} />}
+                <h3>{movie.title}</h3>
+            </Link>
+        </li>
     )
 }
-Movies.propTypes={
-    movie: propTypes.shape({
-        title:propTypes.string.isRequired
+
+Movies.PropTypes={
+    movie: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title:PropTypes.string.isRequired,
+        poster_path: PropTypes.string.isRequired,
+    }).isRequired,
+    config: PropTypes.shape({
+        images: PropTypes.shape({
+            base_url: PropTypes.string,
+        })
     }).isRequired
 }

@@ -5,6 +5,7 @@ export default function Filter({setFilter, filter}) {
         <label>
             Filter:
             <input
+            style={{margin:'2rem'}}
             type="text"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
