@@ -32356,7 +32356,7 @@ function Movies({
   }), /*#__PURE__*/_react.default.createElement("h3", null, movie.title)));
 }
 
-Movies.PropTypes = {
+Movies.propTypes = {
   movie: _propTypes.default.shape({
     id: _propTypes.default.number.isRequired,
     title: _propTypes.default.string.isRequired,
@@ -32480,10 +32480,30 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function MovieDetails() {
+  const BASE_URL = "https://api.themoviedb.org/3/movie/";
+  const API_KEY = "?api_key=9cae3479b893d8f338d20b2d81c2b391";
   const {
     id
   } = (0, _reactRouterDom.useParams)();
-  return /*#__PURE__*/_react.default.createElement("h1", null, "Movie Details ", id);
+  const [movie, setMovie] = (0, _react.useState)({});
+
+  const getMovie = async () => {
+    try {
+      const res = await fetch(BASE_URL + id + API_KEY);
+      const newMovie = await res.json();
+      setMovie(newMovie);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  (0, _react.useEffect)(() => {
+    getMovie();
+  }, [id]);
+  if (!movie.title) return null;
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, movie.title), /*#__PURE__*/_react.default.createElement("p", null, movie.overview), /*#__PURE__*/_react.default.createElement("ul", null, movie.genres.map(genre => /*#__PURE__*/_react.default.createElement("li", {
+    key: genre.id
+  }, genre.name))));
 }
 },{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"pages/App.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');

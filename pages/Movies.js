@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
 export default function Movies({movie, config}) {
@@ -13,15 +13,15 @@ export default function Movies({movie, config}) {
     )
 }
 
-Movies.PropTypes={
-    movie: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title:PropTypes.string.isRequired,
-        poster_path: PropTypes.string.isRequired,
+Movies.propTypes={
+    movie: propTypes.shape({
+        id: propTypes.number.isRequired,
+        title:propTypes.string.isRequired,
+        poster_path: propTypes.string.isRequired,
     }).isRequired,
-    config: PropTypes.shape({
-        images: PropTypes.shape({
-            base_url: PropTypes.string,
+    config: propTypes.shape({
+        images: propTypes.shape({
+            base_url: propTypes.string,
         })
     }).isRequired
 }

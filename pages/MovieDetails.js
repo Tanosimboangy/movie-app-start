@@ -1,9 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function MovieDetails() {
-    const { id } = useParams()
+    const BASE_URL = "https://api.themoviedb.org/3/movie/"
+    const API_KEY = "?api_key=9cae3479b893d8f338d20b2d81c2b391"
+    const { id } = useParams();
+    const [movie, setMovie] = useState({});
+
+    const getMovie = async () => {
+        try {
+            const res = await fetch(BASE_URL + id + API_KEY);
+            const newMovie = await res.json();
+            setMovie(newMovie);
+        }catch(e) {
+            (console.error(e));
+        }
+    }
+    
+    useEffect(() => {
+        getMovie()
+    }, [id])
+
+    if (!movie.title) return null
+
     return (
-        <h1>Movie Details {id}</h1>
+        <div>
+            <h1>{movie.title}</h1>
+            <p>{movie.overview}</p>
+            <ul>{movie.genres.map((genre) => (
+                <li key={genre.id}>{genre.name}</li>
+            ))}</ul>
+        </div>
     ) 
 }
